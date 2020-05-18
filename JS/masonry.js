@@ -1,4 +1,4 @@
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', () => {
     let container = document.querySelector('.masonryContainer');
     let columns = container.querySelectorAll('.masonryColumn');
     let items = container.querySelectorAll('.masonryItem');
@@ -33,7 +33,7 @@ window.onload = function () {
     }
 
     function setWidthForMasonryColumn() {
-        let maxWidthContainer = container.clientWidth;
+        let maxWidthContainer = container.getBoundingClientRect().width;
         let newNumberOfColumns = numberOfColumns;
         let columnsToHide = 0;
 
@@ -57,9 +57,32 @@ window.onload = function () {
         } 
 
         for (let column of columns) {
-           column.style.width = parseInt((maxWidthContainer / newNumberOfColumns)) - 0.2 + "px";
+           column.style.width = (maxWidthContainer / newNumberOfColumns) - 0.2 + "px";
         }
     }
+
+    // function getScrollbarWidth() {
+
+    //     // Creating invisible container
+    //     const outer = document.createElement('div');
+    //     outer.style.visibility = 'hidden';
+    //     outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+    //     outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+    //     document.body.appendChild(outer);
+      
+    //     // Creating inner element and placing it in the container
+    //     const inner = document.createElement('div');
+    //     outer.appendChild(inner);
+      
+    //     // Calculating difference between container's full width and the child width
+    //     const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+      
+    //     // Removing temporary elements from the DOM
+    //     outer.parentNode.removeChild(outer);
+      
+    //     return scrollbarWidth;
+      
+    //   }
 
     function displayWindowSize(){
         clearMasonryColumns();
@@ -67,6 +90,8 @@ window.onload = function () {
         setItemsInMasonryColumns(columns, items)
     }
 
+    displayWindowSize()
+    
     window.addEventListener("resize", displayWindowSize);
-    displayWindowSize();
-}
+    
+});
