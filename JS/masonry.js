@@ -1,9 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
+// kiedy nie zalezy nam na załadowaniu css do końca:
+// document.addEventListener('DOMContentLoaded', () => {
+// ale nam zalezy bo mamy obrazki, więc: 
+// window.onload = function () {
+
+
+window.onload = function () {
     let container = document.querySelector('.masonryContainer');
     let columns = container.querySelectorAll('.masonryColumn');
     let items = container.querySelectorAll('.masonryItem');
-    const numberOfColumns = columns.length;
-    const minColumnnWidth = 320;
+    const NUMBER_OF_COLUMNS = columns.length;
+    const MIN_COLUMN_WIDTH = 320;
 
     function getMinHeightElement(arrElements) {
         let itemWithMinHeight = arrElements[0];
@@ -34,10 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setWidthForMasonryColumn() {
         let maxWidthContainer = container.getBoundingClientRect().width;
-        let newNumberOfColumns = numberOfColumns;
+        let newNumberOfColumns = NUMBER_OF_COLUMNS;
         let columnsToHide = 0;
 
-        while ((maxWidthContainer / newNumberOfColumns) < minColumnnWidth) {
+        while ((maxWidthContainer / newNumberOfColumns) < MIN_COLUMN_WIDTH) {
             newNumberOfColumns--;
             columnsToHide++;
             if (newNumberOfColumns == 1) {
@@ -45,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        let columnsToShow = numberOfColumns - columnsToHide;
+        let columnsToShow = NUMBER_OF_COLUMNS - columnsToHide;
 
         for (let column of columns) {
             if (columnsToShow > 0) {
@@ -61,37 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // function getScrollbarWidth() {
-
-    //     // Creating invisible container
-    //     const outer = document.createElement('div');
-    //     outer.style.visibility = 'hidden';
-    //     outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-    //     outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-    //     document.body.appendChild(outer);
-      
-    //     // Creating inner element and placing it in the container
-    //     const inner = document.createElement('div');
-    //     outer.appendChild(inner);
-      
-    //     // Calculating difference between container's full width and the child width
-    //     const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-      
-    //     // Removing temporary elements from the DOM
-    //     outer.parentNode.removeChild(outer);
-      
-    //     return scrollbarWidth;
-      
-    //   }
-
     function displayWindowSize(){
         clearMasonryColumns();
         setWidthForMasonryColumn();
         setItemsInMasonryColumns(columns, items)
     }
-
-    displayWindowSize()
     
-    window.addEventListener("resize", displayWindowSize);
-    
-});
+    window.addEventListener("resize", displayWindowSize); 
+};
