@@ -5,18 +5,18 @@
 
 
 window.onload = function () {
-    let container = document.querySelector('.masonryContainer');
-    let columns = container.querySelectorAll('.masonryColumn');
-    let items = container.querySelectorAll('.masonryItem');
-    const NUMBER_OF_COLUMNS = columns.length;
-    const MIN_COLUMN_WIDTH = 320;
+    var container = document.querySelector('.masonryContainer');
+    var columns = container.querySelectorAll('.masonryColumn');
+    var items = container.querySelectorAll('.masonryItem');
+    var NUMBER_OF_COLUMNS = columns.length;
+    var MIN_COLUMN_WIDTH = 320;
 
     function getMinHeightElement(arrElements) {
-        let itemWithMinHeight = arrElements[0];
+        var itemWithMinHeight = arrElements[0];
 
-        for (let item of arrElements) {
-            if (item.style.display !== "none") {
-                itemWithMinHeight = itemWithMinHeight.offsetHeight <= item.offsetHeight ? itemWithMinHeight : item;
+        for (var i=0; i<arrElements.length; i++) {
+            if (arrElements[i].style.display !== "none") {
+                itemWithMinHeight = itemWithMinHeight.offsetHeight <= arrElements[i].offsetHeight ? itemWithMinHeight : arrElements[i];
             }
         } 
 
@@ -24,24 +24,24 @@ window.onload = function () {
     }
 
     function setItemsInMasonryColumns(arrElementsColumns, arrElementsItems) {
-        let columnsWithMinHeight; 
+        var columnsWithMinHeight; 
 
-        for (let item of arrElementsItems) {
+        for (var i=0; i<arrElementsItems.length; i++) {
             columnsWithMinHeight = getMinHeightElement(arrElementsColumns);
-            columnsWithMinHeight.append(item);
+            columnsWithMinHeight.appendChild(arrElementsItems[i]);
         }
     }
 
     function clearMasonryColumns() {
-        for (let item of columns) {
-            item.innerHTML = "";
+        for (var i=0; i<columns.length; i++) {
+            columns[i].innerHTML = "";
         }
     }
 
     function setWidthForMasonryColumn() {
-        let maxWidthContainer = container.getBoundingClientRect().width;
-        let newNumberOfColumns = NUMBER_OF_COLUMNS;
-        let columnsToHide = 0;
+        var maxWidthContainer = container.getBoundingClientRect().width;
+        var newNumberOfColumns = NUMBER_OF_COLUMNS;
+        var columnsToHide = 0;
 
         while ((maxWidthContainer / newNumberOfColumns) < MIN_COLUMN_WIDTH) {
             newNumberOfColumns--;
@@ -51,20 +51,17 @@ window.onload = function () {
             }
         }
 
-        let columnsToShow = NUMBER_OF_COLUMNS - columnsToHide;
+        var columnsToShow = NUMBER_OF_COLUMNS - columnsToHide;
 
-        for (let column of columns) {
+        for (var i=0; i<columns.length; i++) {
             if (columnsToShow > 0) {
-                column.style.display = "block";
+                columns[i].style.display = "block";
+                columns[i].style.width = (maxWidthContainer / newNumberOfColumns) - 0.2 + "px";
                 columnsToShow--;
             } else {
-                column.style.display = "none";
+                columns[i].style.display = "none";
             }
         } 
-
-        for (let column of columns) {
-           column.style.width = (maxWidthContainer / newNumberOfColumns) - 0.2 + "px";
-        }
     }
 
     function displayWindowSize(){
