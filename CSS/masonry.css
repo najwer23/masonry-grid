@@ -1,27 +1,45 @@
-
-body {
-    margin: 0;
-    padding: 0;
-    overflow-y: scroll;
-}
-
-#ble {
-    width: calc(90% - 20px);
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.masonryContainer {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: green;
-}
-
-.masonryColumn {
-    float: left;
-}
-
-.masonryItem {
-    padding: 10px;
-}
+.grid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+    grid-auto-rows: 20px;
+  }
+  
+  /* Non-grid specific CSS */  
+  body {
+    margin: 10px;
+    color: #374046;
+    background-color: #374046;
+    font-size: 1.15em;
+  }
+  
+  .item {
+    background-color: #ffffff;
+  }
+  
+  .photothumb{
+    width: 100%;
+    height: auto;
+  }
+  
+  .title {
+    padding: 20px;
+   }
+  
+  .title h3{
+    font-size: 1.2em;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+  
+  .project .title{
+    background-color: #607D8B;
+  }
+  
+  .blog .title{
+    background-color: #ff9800;
+  }
+  
+  .photo .title{
+    background-color: #f44336;
+  }
