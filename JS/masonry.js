@@ -34,7 +34,7 @@ window.onload = function () {
 
     function clearMasonryColumns() {
         for (var i=0; i<columns.length; i++) {
-            columns[i].innerHTML = "";
+            columns[i].textContent = "";
         }
     }
 
@@ -70,6 +70,9 @@ window.onload = function () {
         setItemsInMasonryColumns(columns, items)
     }
 
-    displayWindowSize()    
-    window.addEventListener("resize", displayWindowSize); 
+    displayWindowSize()   
+    
+    window.onresize = function() {
+        displayWindowSize()
+   }
 };
