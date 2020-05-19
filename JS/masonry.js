@@ -72,6 +72,7 @@ window.onload = function () {
         setWidthForMasonryColumn();
         setItemsInMasonryColumns(columns, items)
     }
-    
+
+    displayWindowSize()    
     window.addEventListener("resize", displayWindowSize); 
 };
