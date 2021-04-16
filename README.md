@@ -1,10 +1,42 @@
-# Masonry grid (Masonry Layout)
+# Website Starter Pack - Simply App
 
-## Problem
-- https://medium.com/@andybarefoot/a-masonry-style-layout-using-css-grid-8c663d355ebb
+- Webpack 
+    - Babel, 
+    - CSS, 
+    - JS (ES2015, ES2016 & ES2017), Async/Await
+    - FontAwesome 5
+    - Fonts
+    - Webpack serve
+- HTML template
 
-## Branches 
-- masonry_float_left -> support IE11+
-- masonry_grid -> CSS3 Grid solution without < IE11
+## Usage
 
+### Installation
 
+Install the dependencies
+
+```sh
+$ yarn install
+```
+
+### Serve
+To serve in the browser  - Runs webpack-dev-server
+
+```sh
+$ yarn start
+```
+
+### Build
+Compile and build
+
+```sh
+$ yarn build
+```
+
+### Author
+Mariusz Najwer
+[https://najwer23.github.io/](https://najwer23.github.io/)
+
+### License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
