@@ -12,6 +12,21 @@ body {
     font-size: 1.2rem;
 }
 
-@media only screen and (max-width: 1400px) {
-
+main {
+    background-color: grey;
+    margin: 50px;
+    width: 900px;
 }
+
+
+.masonry-child {
+    background-color: hotpink;
+    padding: 20px;
+}
+
+@media only screen and (max-width: 1400px) {
+    main {
+        width: 100%;
+    }
+}
+
