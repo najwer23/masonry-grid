@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 var entryCustom = {};
-let entryArr = ["style", "index"];
+let entryArr = ["style", "masonry-grid"];
 for (let i = 0; i < entryArr.length; i++) {
   entryCustom[entryArr[i]] = path.resolve(__dirname, './assets/js/' + entryArr[i] + '.js')
 }
