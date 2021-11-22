@@ -12,6 +12,7 @@ let MASONRY_ARR_ID = [
 
 window.addEventListener('load', (event) => {
     setMasonryOnLoad();
+    setMasonryOnResize();
 });
 
 window.addEventListener('resize', function(){
@@ -114,7 +115,7 @@ function makeMasonryLayout(masonryParentEle) {
     var masonryColumnsCurrentHeight = {};
     let masonryColumnsCurrent = masonryParentEle.querySelectorAll('[id^="masonry-col-"]')
     for (let i = 0; i < masonryColumnsCurrent.length; i++) {
-        masonryColumnsCurrentHeight[masonryColumnsCurrent[i].id] = 1 * i;
+        masonryColumnsCurrentHeight[masonryColumnsCurrent[i].id] = 0;
     }
 
     //insert childs in new columns
@@ -141,6 +142,13 @@ function makeMasonryLayout(masonryParentEle) {
         })
         masonryParentEle.querySelector("#" + masonryColumnMinHeightName).appendChild(masonryChildEle)
     }
+    
+    for (let i = 0; i < masonryColumnsCurrent.length; i++) {
+        masonryColumnsCurrentHeight[masonryColumnsCurrent[i].id] = masonryColumnsCurrent[i].clientHeight;
+    }
+    addCss2Element(masonryParentEle.parentElement, {
+        "height": Math.max(...Object.keys(masonryColumnsCurrentHeight).map(key => masonryColumnsCurrentHeight[key])) + "px"
+    })
 }
 
 function findNumberOfColumns(parentWidth, dictionary) {
