@@ -6,6 +6,7 @@
 
 
 var currentColumns = -1
+var percentScroll;
 
 //In
 var masonryParent = document.querySelector("#masonry")
@@ -16,7 +17,14 @@ window.onload = () => {
 
 window.addEventListener('resize', function(){
     makeMasonryLayout(masonryParent)
+    var Ypos = document.body.scrollHeight * percentScroll;
+    window.scrollTo(0, Ypos);
 })
+
+window.addEventListener("scroll", getScrollPercent);
+function getScrollPercent() {
+    percentScroll = window.pageYOffset / document.body.scrollHeight;
+}
 
 function makeMasonryLayout(masonryParent) {
     addCss2Element(masonryParent, {
@@ -61,35 +69,30 @@ function makeMasonryLayout(masonryParent) {
         }
     }
 
-        var allCurrentColumnsId = {};
-        let allCurrentColumnsIdNodeList = document.querySelectorAll('[id^="masonry-col-"]')
-        for (let i = 0; i < allCurrentColumnsIdNodeList.length; i++) {
-            allCurrentColumnsId[allCurrentColumnsIdNodeList[i].id] = 0;
-        }
+    var allCurrentColumnsId = {};
+    let allCurrentColumnsIdNodeList = document.querySelectorAll('[id^="masonry-col-"]')
+    for (let i = 0; i < allCurrentColumnsIdNodeList.length; i++) {
+        allCurrentColumnsId[allCurrentColumnsIdNodeList[i].id] = 0;
+    }
 
-        //insert childs in new columns
-        for (let i=0; i<masonryChilds.length; i++) {
-            let heightChild = document.querySelector("#masonry-child-" + i).clientHeight;
-            //console.log(heightChild)
+    //insert childs in new columns
+    for (let i=0; i<masonryChilds.length; i++) {
+        let heightChild = document.querySelector("#masonry-child-" + i).clientHeight;
 
-            let allCurrentColumnsIdKeys = Object.keys(allCurrentColumnsId)
-            let colMinHeightName = ""
-            let colMinHeightValue = Infinity
-            
-            //console.log("xzzzzzzzzzz", allCurrentColumnsId)
-            for (let j = allCurrentColumnsIdKeys.length-1; j>=0; j--) {
-                if (allCurrentColumnsId[allCurrentColumnsIdKeys[j]] <= colMinHeightValue) {
-                    colMinHeightName = allCurrentColumnsIdKeys[j];
-                    colMinHeightValue = allCurrentColumnsId[allCurrentColumnsIdKeys[j]]
-                }
+        let allCurrentColumnsIdKeys = Object.keys(allCurrentColumnsId)
+        let colMinHeightName = ""
+        let colMinHeightValue = Infinity
+        
+        for (let j = allCurrentColumnsIdKeys.length-1; j>=0; j--) {
+            if (allCurrentColumnsId[allCurrentColumnsIdKeys[j]] <= colMinHeightValue) {
+                colMinHeightName = allCurrentColumnsIdKeys[j];
+                colMinHeightValue = allCurrentColumnsId[allCurrentColumnsIdKeys[j]]
             }
-
-            console.log(allCurrentColumnsId,colMinHeightName)
-
-            allCurrentColumnsId[colMinHeightName] += heightChild;
-            document.querySelector("#" + colMinHeightName).appendChild(document.querySelector("#masonry-child-" + i))
         }
-    
+
+        allCurrentColumnsId[colMinHeightName] += heightChild;
+        document.querySelector("#" + colMinHeightName).appendChild(document.querySelector("#masonry-child-" + i))
+    }
 }
 
 
