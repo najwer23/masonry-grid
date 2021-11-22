@@ -110,11 +110,11 @@ function makeMasonryLayout(masonryParentEle) {
         }
     }
 
-    // set starting yheight for columns
+    // set starting height for columns
     var masonryColumnsCurrentHeight = {};
     let masonryColumnsCurrent = masonryParentEle.querySelectorAll('[id^="masonry-col-"]')
     for (let i = 0; i < masonryColumnsCurrent.length; i++) {
-        masonryColumnsCurrentHeight[masonryColumnsCurrent[i].id] = 0;
+        masonryColumnsCurrentHeight[masonryColumnsCurrent[i].id] = 1 * i;
     }
 
     //insert childs in new columns
