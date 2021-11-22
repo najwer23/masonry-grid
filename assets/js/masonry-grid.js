@@ -11,11 +11,11 @@ let MASONRY_ARR_ID = [
 
 
 window.addEventListener('load', (event) => {
-    setMasonry();
+    setMasonryOnLoad();
 });
 
 window.addEventListener('resize', function(){
-    setMasonry();
+    setMasonryOnResize();
     //remember scroll position when resize
     window.scrollTo(0, document.body.scrollHeight * SCROLL_PERCENT_POSITION);
 })
@@ -28,11 +28,20 @@ window.addEventListener("scroll", function(){
 
 
 
-
-
-function setMasonry() {
-    for (let i=0; i<MASONRY_ARR_ID.length; i++) {
+function setMasonryOnResize() {
+    for (let i = 0; i < MASONRY_ARR_ID.length; i++) {
         makeMasonryLayout(document.querySelector("#" + MASONRY_ARR_ID[i]))
+    }
+}
+
+function setMasonryOnLoad() {
+    let ele;
+    for (let i=0; i<MASONRY_ARR_ID.length; i++) {
+        ele = document.querySelector("#" + MASONRY_ARR_ID[i])
+        addCss2Element(ele, {
+            "box-sizing": "border-box"
+        })
+        makeMasonryLayout(ele)
     }
 }
 

@@ -14,11 +14,11 @@ body {
 }
 
 #container {
-    background-color:cadetblue;
-    margin-left: auto;
-    margin-right: auto;
+    background-color:cadetblue !important;
+    content: "d";
     margin-top: 50px;
     width: 80%;
+    height: 100%;
 }
 
 #masonry div[id^="masonry-child"] {
