@@ -1,12 +1,9 @@
-var CURRENT_NUMBER_OF_COLUMNS = -1
 var SCROLL_PERCENT_POSITION;
-
-// IN - SET ID OF Masonry
-let MASONRY_ARR_ID = [
-    "masonry"
+var CURRENT_NUMBER_OF_COLUMNS = {}
+var MASONRY_ARR_ID = [
+    "masonry",
+    "masonry2"
 ]
-
-
 
 
 
@@ -26,8 +23,6 @@ window.addEventListener("scroll", function(){
 
 
 
-
-
 function setMasonryOnResize() {
     for (let i = 0; i < MASONRY_ARR_ID.length; i++) {
         makeMasonryLayout(document.querySelector("#" + MASONRY_ARR_ID[i]))
@@ -38,15 +33,14 @@ function setMasonryOnLoad() {
     let ele;
     for (let i=0; i<MASONRY_ARR_ID.length; i++) {
         ele = document.querySelector("#" + MASONRY_ARR_ID[i])
-        addCss2Element(ele, {
-            "box-sizing": "border-box"
-        })
+        addCss2Element(ele, { "box-sizing": "border-box" })
+        CURRENT_NUMBER_OF_COLUMNS[MASONRY_ARR_ID[i]] = -1;
         makeMasonryLayout(ele)
     }
 }
 
 function makeMasonryLayout(masonryParentEle) {
-    let masonryChilds = masonryParentEle.querySelectorAll('[id^="masonry-child-"]');
+    let masonryChilds = masonryParentEle.querySelectorAll(`[id^="${masonryParentEle.id}-child-"]`);
     let masonryParentEleWidth = masonryParentEle.clientWidth;
     let masonrySpace = masonryParentEle.getAttribute("space");
     let masonrySpaceHalf = masonrySpace/2;
@@ -56,15 +50,15 @@ function makeMasonryLayout(masonryParentEle) {
     )
 
     //set columns
-    if (CURRENT_NUMBER_OF_COLUMNS != masonryNumberOfColumns) {
+    if (CURRENT_NUMBER_OF_COLUMNS[masonryParentEle.id] != masonryNumberOfColumns) {
         
         //reset child position in columns
         for (let i = 0; i < masonryChilds.length; i++) {
-            masonryParentEle.appendChild(masonryParentEle.querySelector("#masonry-child-"+i))
+            masonryParentEle.appendChild(masonryParentEle.querySelector(`#${masonryParentEle.id}-child-`+i))
         }
 
         //remove old columns
-        let masonryColumnsToRemove = document.querySelectorAll('[id^="masonry-col-"]')
+        let masonryColumnsToRemove = document.querySelectorAll(`[id^="${masonryParentEle.id}-col-"]`)
         for (let i = 0; i < masonryColumnsToRemove.length; i++) {
             masonryParentEle.removeChild(masonryColumnsToRemove[i])
         }
@@ -78,7 +72,7 @@ function makeMasonryLayout(masonryParentEle) {
 
         for (let i = 0; i < masonryNumberOfColumns; i++) {
             newMasonryColumn = document.createElement("div");
-            newMasonryColumn.id = "masonry-col-" + i;
+            newMasonryColumn.id = `${masonryParentEle.id}-col-` + i;
             masonryParentEle.appendChild(newMasonryColumn)
 
             //set padding for first and last column
@@ -106,13 +100,13 @@ function makeMasonryLayout(masonryParentEle) {
             })
 
             // update number of columns
-            CURRENT_NUMBER_OF_COLUMNS = masonryNumberOfColumns
+            CURRENT_NUMBER_OF_COLUMNS[masonryParentEle.id] = masonryNumberOfColumns
         }
     }
 
     // set starting height for columns
     var masonryColumnsCurrentHeight = {};
-    let masonryColumnsCurrent = masonryParentEle.querySelectorAll('[id^="masonry-col-"]')
+    let masonryColumnsCurrent = masonryParentEle.querySelectorAll(`[id^="${masonryParentEle.id}-col-"]`)
     for (let i = 0; i < masonryColumnsCurrent.length; i++) {
         masonryColumnsCurrentHeight[masonryColumnsCurrent[i].id] = 0;
     }
@@ -124,7 +118,7 @@ function makeMasonryLayout(masonryParentEle) {
 
 
     for (let i=0; i<masonryChilds.length; i++) {
-        let masonryChildEle = masonryParentEle.querySelector("#masonry-child-" + i)
+        let masonryChildEle = masonryParentEle.querySelector(`#${masonryParentEle.id}-child-` + i)
         masonryChildHeight = masonryChildEle.clientHeight;
 
         let masonryColumnMinHeightValue = Infinity
@@ -139,6 +133,7 @@ function makeMasonryLayout(masonryParentEle) {
         addCss2Element(masonryChildEle, {
             'margin-bottom': `${masonrySpace + "px"}`
         })
+
         masonryParentEle.querySelector("#" + masonryColumnMinHeightName).appendChild(masonryChildEle)
     }
     
