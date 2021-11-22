@@ -26,3 +26,8 @@ body {
     padding: 40px;
 }
 
+#masonry2 div[id^="masonry2-child"] {
+    background: green;
+    padding: 40px;
+}
+
