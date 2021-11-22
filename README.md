@@ -1,4 +1,5 @@
-# Website Starter Pack
+# Masonry Grid
+IE11, Chrome, Firefox, Edge
 
 ## Inside
 - Babel, 
@@ -13,6 +14,37 @@
 - HTML template
 
 ## Usage
+
+```sh
+<div id="container">
+    <div id="masonry" columns='{"400": 1, "800": 2, "1500": 3}' space='30'>
+        <div id="masonry-child-0"></div>
+        <div id="masonry-child-1"></div>
+        <div id="masonry-child-2"></div>
+    </div>
+</div>
+
+<div id="container">
+    <div id="masonry2" columns='{"400": 1, "800": 2, "1500": 3}' space='30'>
+        <div id="masonry-child-0"></div>
+        <div id="masonry-child-1"></div>
+        <div id="masonry-child-2"></div>
+    </div>
+</div>
+```
+
+Remember to set your masonry on masonry-grid.js
+```sh
+let MASONRY_ARR_ID = [
+    "masonry",
+    "masonry2"
+]
+
+```
+- 400, 800, 1500 - custom breakpoints
+- 1, 2, 3 - number of columns for breakpoints
+- 30 - space between masonry-child 
+
 ### Installation
 ```sh
 $ yarn install
