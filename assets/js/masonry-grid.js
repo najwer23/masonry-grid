@@ -29,8 +29,6 @@ function makeMasonryLayout(masonryParent) {
     let masonryParentColumnsSpace = masonryParent.getAttribute("space")
 
     let masonryNumberOfColumns = findNumberOfColumns(masonryParentWidth, masonryParentColumnsDictionary)
-    // console.log(masonryNumberOfColumns)
-
 
     //set columns
     if (currentColumns != masonryNumberOfColumns) {
@@ -46,22 +44,49 @@ function makeMasonryLayout(masonryParent) {
             masonryParent.removeChild(divColumnToRemove[i])
         }
 
+        let paddingLeft = 0;
+        let paddingRight = 0;
+        let paddingBottom = 0;
         //create new columns
         for (let i = 0; i < masonryNumberOfColumns; i++) {
             let newDivColumn = document.createElement("div");
             let newDivId = "masonry-col-" + i
             newDivColumn.id = newDivId;
             masonryParent.appendChild(newDivColumn)
+
+            //first and last column
+            if ((i%(masonryNumberOfColumns-1)) == 0) {
+                if (i==0) {
+                    paddingLeft = 0;
+                    paddingRight = masonryParentColumnsSpace / 2;
+                } else {
+                    paddingLeft = masonryParentColumnsSpace /2;
+                    paddingRight = 0;
+                }
+            } else {
+                paddingLeft = masonryParentColumnsSpace / 2
+                paddingRight = masonryParentColumnsSpace / 2
+            }
+
+            // zero if one column
+            if (masonryNumberOfColumns == 1) {
+                paddingLeft = 0;
+                paddingRight = 0;
+            }
+
+            let paddingWidth = paddingLeft + paddingRight;
             addCss2Element(newDivColumn, {
                 'background-color': 'yellow',
                 'color': 'red',
                 'float': "left",
-                'width': `calc((100% / ${masonryNumberOfColumns}) )`
+                'width': `calc((100% / ${masonryNumberOfColumns}) - ${paddingWidth+"px"})`,
+                'padding': `0 ${paddingRight+"px"} ${paddingBottom+"px"} ${paddingLeft+"px"}` 
             })
             currentColumns = masonryNumberOfColumns
         }
     }
 
+    // set height for columns
     var allCurrentColumnsId = {};
     let allCurrentColumnsIdNodeList = document.querySelectorAll('[id^="masonry-col-"]')
     for (let i = 0; i < allCurrentColumnsIdNodeList.length; i++) {
@@ -84,7 +109,11 @@ function makeMasonryLayout(masonryParent) {
         }
 
         allCurrentColumnsId[colMinHeightName] += heightChild;
-        document.querySelector("#" + colMinHeightName).appendChild(document.querySelector("#masonry-child-" + i))
+        let ele = document.querySelector("#masonry-child-" + i)
+        addCss2Element(ele, {
+            'margin-bottom': `${masonryParentColumnsSpace + "px"}`
+        })
+        document.querySelector("#" + colMinHeightName).appendChild(ele)
     }
 }
 

@@ -21,11 +21,12 @@ body {
     width: 80%;
 }
 
+div[id^="masonry-child"] {
+    background: green;
+    padding: 40px;
+}
+
 
 #masonry {
     width: 100%;
-}
-
-#masonry div {
-    padding-bottom: 30px
 }
