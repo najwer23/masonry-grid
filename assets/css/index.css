@@ -13,7 +13,7 @@ body {
     background: white;
 }
 
-main {
+#container {
     background-color:cadetblue;
     margin-left: auto;
     margin-right: auto;
@@ -22,6 +22,9 @@ main {
 }
 
 
+#masonry {
+    width: 100%;
+}
 
 #masonry div {
     padding-bottom: 30px

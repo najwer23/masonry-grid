@@ -36,7 +36,7 @@ function makeMasonryLayout(masonryParent) {
     let masonryParentColumnsSpace = masonryParent.getAttribute("space")
 
     let masonryNumberOfColumns = findNumberOfColumns(masonryParentWidth, masonryParentColumnsDictionary)
-    console.log(masonryNumberOfColumns)
+    // console.log(masonryNumberOfColumns)
 
 
     //set columns
@@ -44,13 +44,13 @@ function makeMasonryLayout(masonryParent) {
 
         //reset child position in columns
         for (let i = 0; i < masonryChilds.length; i++) {
-            masonryParent.append(document.querySelector("#masonry-child-"+i))
+            masonryParent.appendChild(document.querySelector("#masonry-child-"+i))
         }
 
         //remove old columns
         let divColumnToRemove = document.querySelectorAll('[id^="masonry-col-"]')
         for (let i = 0; i < divColumnToRemove.length; i++) {
-            divColumnToRemove[i].remove()
+            masonryParent.removeChild(divColumnToRemove[i])
         }
 
         //create new columns
