@@ -10,10 +10,11 @@ body {
     font-family: 'Muli', sans-serif;
     font-weight: normal;
     font-size: 1.2rem;
+    background: white;
 }
 
 main {
-    background-color: grey;
+    background-color:cadetblue;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
@@ -22,6 +23,6 @@ main {
 
 
 
-.masonry-child {
-    background-color: hotpink;
+#masonry div {
+    padding-bottom: 30px
 }

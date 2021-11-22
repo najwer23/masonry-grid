@@ -5,11 +5,108 @@
 // let masonryNumOfColumns = 1;
 
 
+var currentColumns = -1
+
+//In
+var masonryParent = document.querySelector("#masonry")
+
+window.onload = () => {
+    makeMasonryLayout(masonryParent)
+};
 
 window.addEventListener('resize', function(){
-    console.log("maruszz")
+    makeMasonryLayout(masonryParent)
 })
 
+function makeMasonryLayout(masonryParent) {
+    addCss2Element(masonryParent, {
+    })
+
+    let masonryChilds = masonryParent.querySelectorAll('[id^="masonry-child-"]');
+    let masonryParentWidth = masonryParent.clientWidth;
+    let masonryParentColumnsDictionary = JSON.parse(masonryParent.getAttribute("columns"))
+    let masonryParentColumnsSpace = masonryParent.getAttribute("space")
+
+    let masonryNumberOfColumns = findNumberOfColumns(masonryParentWidth, masonryParentColumnsDictionary)
+    console.log(masonryNumberOfColumns)
+
+
+    //set columns
+    if (currentColumns != masonryNumberOfColumns) {
+
+        //reset child position in columns
+        for (let i = 0; i < masonryChilds.length; i++) {
+            masonryParent.append(document.querySelector("#masonry-child-"+i))
+        }
+
+        //remove old columns
+        let divColumnToRemove = document.querySelectorAll('[id^="masonry-col-"]')
+        for (let i = 0; i < divColumnToRemove.length; i++) {
+            divColumnToRemove[i].remove()
+        }
+
+        //create new columns
+        for (let i = 0; i < masonryNumberOfColumns; i++) {
+            let newDivColumn = document.createElement("div");
+            let newDivId = "masonry-col-" + i
+            newDivColumn.id = newDivId;
+            masonryParent.appendChild(newDivColumn)
+            addCss2Element(newDivColumn, {
+                'background-color': 'yellow',
+                'color': 'red',
+                'float': "left",
+                'width': `calc((100% / ${masonryNumberOfColumns}) )`
+            })
+            currentColumns = masonryNumberOfColumns
+        }
+    }
+
+        var allCurrentColumnsId = {};
+        let allCurrentColumnsIdNodeList = document.querySelectorAll('[id^="masonry-col-"]')
+        for (let i = 0; i < allCurrentColumnsIdNodeList.length; i++) {
+            allCurrentColumnsId[allCurrentColumnsIdNodeList[i].id] = 0;
+        }
+
+        //insert childs in new columns
+        for (let i=0; i<masonryChilds.length; i++) {
+            let heightChild = document.querySelector("#masonry-child-" + i).clientHeight;
+            //console.log(heightChild)
+
+            let allCurrentColumnsIdKeys = Object.keys(allCurrentColumnsId)
+            let colMinHeightName = ""
+            let colMinHeightValue = Infinity
+            
+            //console.log("xzzzzzzzzzz", allCurrentColumnsId)
+            for (let j = allCurrentColumnsIdKeys.length-1; j>=0; j--) {
+                if (allCurrentColumnsId[allCurrentColumnsIdKeys[j]] <= colMinHeightValue) {
+                    colMinHeightName = allCurrentColumnsIdKeys[j];
+                    colMinHeightValue = allCurrentColumnsId[allCurrentColumnsIdKeys[j]]
+                }
+            }
+
+            console.log(allCurrentColumnsId,colMinHeightName)
+
+            allCurrentColumnsId[colMinHeightName] += heightChild;
+            document.querySelector("#" + colMinHeightName).appendChild(document.querySelector("#masonry-child-" + i))
+        }
+    
+}
+
+
+
+function findNumberOfColumns(currentWidth, dictionary) {
+    let dictionaryKeys = Object.keys(dictionary).map(v=>+v).sort((a,b)=>a-b)
+    let numberOfColumns = 4; 
+
+    for (let i=0; i<dictionaryKeys.length; i++) {
+        if (currentWidth <= dictionaryKeys[i]) {
+            numberOfColumns = dictionary[dictionaryKeys[i]]
+            break;
+        }
+    }
+
+    return numberOfColumns
+}
 
 
 
