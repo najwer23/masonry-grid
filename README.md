@@ -26,9 +26,9 @@ IE11, Chrome, Firefox, Edge
 
 <div id="container">
     <div id="masonry2" columns='{"400": 1, "800": 2, "1500": 3}' space='30'>
-        <div id="masonry-child-0"></div>
-        <div id="masonry-child-1"></div>
-        <div id="masonry-child-2"></div>
+        <div id="masonry2-child-0"></div>
+        <div id="masonry2-child-1"></div>
+        <div id="masonry2-child-2"></div>
     </div>
 </div>
 ```
