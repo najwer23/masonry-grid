@@ -92,7 +92,7 @@ function makeMasonryLayout(masonryParentEle) {
             addCss2Element(newMasonryColumn, {
                 "background": "inherit",
                 'float': "left",
-                'width': `calc((100% - ${paddingLeftRight + "px"}) / ${masonryNumberOfColumns} )`,
+                'width': `calc(100% / ${masonryNumberOfColumns})`,
                 'padding': `0 ${paddingRight+"px"} ${paddingBottom+"px"} ${paddingLeft+"px"}` 
             })
 
