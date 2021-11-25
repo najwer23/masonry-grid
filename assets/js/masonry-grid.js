@@ -9,6 +9,7 @@ var MASONRY_ARR_ID = [
 
 window.addEventListener('load', (event) => {
     setMasonryOnLoad();
+    setMasonryOnResize();
 });
 
 window.addEventListener('resize', function(){
