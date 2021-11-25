@@ -14,6 +14,7 @@ window.addEventListener('load', (event) => {
 
 window.addEventListener('resize', function(){
     setMasonryOnResize();
+    setMasonryOnResize();
     //remember scroll position when resize
     window.scrollTo(0, document.body.scrollHeight * SCROLL_PERCENT_POSITION);
 })
